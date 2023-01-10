@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../WebApi"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../DtoLibrary"
+		}
+	],
+	"settings": {}
+}
