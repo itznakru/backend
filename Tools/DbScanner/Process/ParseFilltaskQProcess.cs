@@ -9,6 +9,7 @@ namespace DbScanner.Process
     {
         public string paserClass { get; set; }
         public int startDocId { get; set; }
+        public int finishDocId { get; set; }
         public int dbPageSize { get; set; }
         public string connectionString {get;set;}
         public static string SettingFieldName { get { return "parserAction"; } }
@@ -35,9 +36,12 @@ namespace DbScanner.Process
             Console.WriteLine("DB:" + s_settings.connectionString);
             Console.WriteLine("CLASS:" + s_settings.paserClass);
             Console.WriteLine("PAGE SIZE:" + s_settings.dbPageSize);
-            Console.Write("Enter START DOCID:");
-            string startDocId=Console.ReadLine().Replace("Enter START DOCID:","");
-            _startIndx=int.Parse(startDocId);
+            Console.Write("Enter START DOCID :");
+            string docId=Console.ReadLine().Replace("Enter START DOCID:","");
+            _startIndx=int.Parse(docId);
+            Console.Write("Enter FINISH DOCID:");
+            docId=Console.ReadLine().Replace("Enter FINISH DOCID:","");
+            s_settings.finishDocId=int.Parse(docId);
             Console.WriteLine("Y/NO");
             var line = Console.ReadLine();
             if (!line.Equals("Y", StringComparison.OrdinalIgnoreCase))
@@ -53,7 +57,8 @@ namespace DbScanner.Process
                     SingletonProcessInfrastraction.Itstance.WaitProcessThread();
                     Next(s_settings.dbPageSize);
                     SingletonProcessInfrastraction.Itstance.ResetProcessThread();
-                } while (!ct.IsCancellationRequested);
+                } while (!ct.IsCancellationRequested && _startIndx<s_settings.finishDocId);
+                SingletonProcessInfrastraction.Itstance.ShutDown();
             }
             catch (Exception e)
             {

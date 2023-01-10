@@ -23,7 +23,7 @@ namespace DbScanner.Process.Infrastruction
             {
                 Console.Clear();
                 _log.Info(SingletonProcessInfrastraction.Itstance.GetStateAsString());
-                Task.Delay(DELAY_TASK_MS, ct).Wait(ct);
+                Task.Delay(DELAY_TASK_MS).Wait();
             } while (!ct.IsCancellationRequested);
 
             _log.Info("PrintProcess:DONE");

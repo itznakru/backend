@@ -16,6 +16,7 @@ namespace DbScanner.Process.Infrastruction
         void UpdateState(string key, string value);
         string GetStateValue(string key);
         void IncAndUpdateStateValue(string key);
+        void ShutDown();
         string GetStateAsString();
     }
     public interface IProcessInfrastractionSemaphore

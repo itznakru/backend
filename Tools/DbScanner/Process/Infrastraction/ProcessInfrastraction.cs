@@ -19,14 +19,14 @@ namespace DbScanner.Process.Infrastruction
         const int MAX_Q_LEN = 10000;
         private readonly ConcurrentQueue<BsonDocument> _taskQ;
         private readonly ManualResetEvent _waitHandler;
-        private readonly Dictionary<string, string> _state;
+        private readonly ConcurrentDictionary<string, string> _state;
         public CancellationTokenSource CTS { get; }
 
         public ProcessInfrastraction()
         {
             _taskQ = new ConcurrentQueue<BsonDocument>();
             _waitHandler = new ManualResetEvent(true);
-            _state = new Dictionary<string, string>();
+            _state = new ConcurrentDictionary<string, string>();
             CTS = new CancellationTokenSource();
         }
 
@@ -68,7 +68,7 @@ namespace DbScanner.Process.Infrastruction
             }
             else
             {
-                _state.Add(key, "0");
+                _state.TryAdd(key, "0");
             }
         }
 
@@ -82,13 +82,17 @@ namespace DbScanner.Process.Infrastruction
             if (_state.ContainsKey(key))
                 _state[key] = value;
             else
-                _state.Add(key, value);
+                _state.TryAdd(key, value);
         }
 
         public void WaitProcessThread()
         {
             _waitHandler.WaitOne();
         }
-    }
 
+        public void ShutDown()
+        {
+            CTS.Cancel();
+        }
+    }
 }
