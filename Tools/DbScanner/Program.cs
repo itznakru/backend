@@ -81,8 +81,10 @@ namespace DbScanner
         static void InitHost(ACTIONTYPE action)
         {
             IServiceCollection services = new ServiceCollection();
+            IConfigService _configService=new ConfigService();
             services.AddSingleton<ILogService, SerilogService>();
-            services.AddSingleton<IConfigService>(new ConfigService());
+            services.AddSingleton(_configService);
+            services.AddSingleton<IDistributeCache>(new RedisCache(services,_configService));
             services.AddSingleton<IPrintProcess, PrintProcess>();
             services.AddTransient<IMongoDbContextService, MongoDbContextService>();
             services.AddTransient<ITaskScanerProcess, TaskScanerProcess>();
@@ -105,6 +107,8 @@ namespace DbScanner
 
             /*CLOUSERE FOR GLOBAL  ACCESS TO SERVICES */
             GetService = (t) => serviceProvider.GetService(t);
+
+
         }
 
         /* RUN DIALOG FOR SELECT OPERATION  */
