@@ -4,51 +4,47 @@ using MongoDB.Bson;
 
 namespace DbScanner.Process
 {
-
-    /* DTO class for prasing appsettings.json */
-    public class ParseActionSettings
+    public class RedisFillSettings
     {
-        public string paserClass { get; set; }
-        public int startDocId { get; set; }
         public int finishDocId { get; set; }
-        public int dbPageSize { get; set; }
+        public int startDocId { get; set; }
         public string connectionString { get; set; }
-        public static string SettingFieldName { get { return "parserAction"; } }
+        public int dbPageSize { get; set; }
+        public static string SettingFieldName { get { return "redis"; } }
+
     }
 
-    /*Purpose: To fill task queue for action site parsing*/
-    public class ParseFillTaskQProcess : IFillTaskQProcess
+    /*Purpose: To fill task queue for action fill redis cahe (company names| image vectors)*/
+    public class RedisFillTaskQProcess : IFillTaskQProcess
     {
-        private static ParseActionSettings s_settings = null;
-        private readonly ILogService _log;
+        private readonly RedisFillSettings s_settings = null;
         private int _startIndx;
-        public ParseFillTaskQProcess(IConfigService cnf, ILogService log)
+        private readonly ILogService _log;
+        public RedisFillTaskQProcess(IConfigService cnf, ILogService log)
         {
-            /* read settings */
-            s_settings ??= cnf.GetObject<ParseActionSettings>(ParseActionSettings.SettingFieldName);
-            s_settings.connectionString = cnf.GetString("connectionString");
             _log = log;
+            _startIndx = 100;
+            s_settings ??= cnf.GetObject<RedisFillSettings>(RedisFillSettings.SettingFieldName);
+            s_settings.connectionString ??= cnf.GetString("connectionString");
             _startIndx = s_settings.startDocId;
         }
 
         public void Init()
         {
+            const string PROMT_START = "Enter START DOCID:";
+            const string PROMT_END = "Enter FINISH DOCID:";
             Console.WriteLine("CONFIRM SETTINGS");
-            Console.WriteLine("MODE:PARSING");
+            Console.WriteLine("MODE:FILL REDIS CACHE");
             Console.WriteLine("DB:" + s_settings.connectionString);
-            Console.WriteLine("CLASS:" + s_settings.paserClass);
             Console.WriteLine("PAGE SIZE:" + s_settings.dbPageSize);
-            Console.Write("Enter START DOCID :");
-            string docId = Console.ReadLine().Replace("Enter START DOCID:", "");
+            Console.Write(PROMT_START);
+            string docId = Console.ReadLine().Replace(PROMT_START, "");
             _startIndx = int.Parse(docId);
-            Console.Write("Enter FINISH DOCID:");
-            docId = Console.ReadLine().Replace("Enter FINISH DOCID:", "");
+            Console.Write(PROMT_END);
+            docId = Console.ReadLine().Replace(PROMT_END, "");
             s_settings.finishDocId = int.Parse(docId);
-            Console.WriteLine("Y/NO");
-            var line = Console.ReadLine();
-            if (!line.Equals("Y", StringComparison.OrdinalIgnoreCase))
-                throw new ArgumentException();
         }
+
 
         public void Run(CancellationToken ct)
         {
@@ -60,7 +56,11 @@ namespace DbScanner.Process
                     Next(s_settings.dbPageSize);
                     SingletonProcessInfrastraction.Itstance.ResetProcessThread();
                 } while (!ct.IsCancellationRequested && _startIndx < s_settings.finishDocId);
-                SingletonProcessInfrastraction.Itstance.ShutDown();
+
+                /* if we should stop by the reason end  operation - wait finish of actions*/
+                if(!ct.IsCancellationRequested)
+                    SingletonProcessInfrastraction.Itstance.ShutDown();
+
             }
             catch (Exception e)
             {
@@ -69,6 +69,9 @@ namespace DbScanner.Process
             }
             _log.Info("FillTaskQProcess:DONE");
         }
+
+
+
         private void Next(int size)
         {
             int docId = _startIndx + 1;
@@ -82,7 +85,7 @@ namespace DbScanner.Process
             _startIndx += size;
 
             SingletonProcessInfrastraction.Itstance.UpdateState("LAST_DOCID", _startIndx.ToString());
-            SingletonProcessInfrastraction.Itstance.UpdateState("LAST_READER_TIME", DateTime.Now.ToString());
+            SingletonProcessInfrastraction.Itstance.UpdateState("LAST_ADD_Q_TIME", DateTime.Now.ToString());
         }
     }
 }

@@ -18,13 +18,14 @@ namespace ItZnak.Infrastruction.Services
         private readonly RedisCacheConfig _configRedis;
         private readonly IDistributedCache _cache;
         private readonly DistributedCacheEntryOptions _cacheOptions;
-        public RedisCache(IServiceCollection services, IConfigService cnfg)
+        public RedisCache(IServiceCollection services, RedisCacheConfig cnfg)
         {
-            _configRedis = cnfg.GetObject<RedisCacheConfig>(RedisCacheConfig.rootName);
+            _configRedis=cnfg;    
             services.AddDistributedRedisCache(opt =>
             {
                 opt.Configuration = _configRedis.redisUrl;
                 opt.InstanceName = _configRedis.instanceName;
+              //  opt.ConfigurationOptions= new StackExchange.Redis.ConfigurationOptions(){SyncTimeout=15000};
             });
             _cacheOptions = new DistributedCacheEntryOptions()
             {

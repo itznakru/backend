@@ -89,9 +89,14 @@ namespace DbScanner.Process.Infrastruction
         {
             _waitHandler.WaitOne();
         }
-
+        
         public void ShutDown()
         {
+            do
+            {
+                Task.Delay(200).Wait();
+            } while (!_taskQ.IsEmpty);
+
             CTS.Cancel();
         }
     }
