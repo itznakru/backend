@@ -1,0 +1,17 @@
+FrontEnd проекта http://itznak.ru.
+Действующий прототип представленного кода http://itznak.ru//app/wizard-mobile/index.html?memberKey=demo&amp;c=1670790889671
+Реализация: SPA приложение. REACT + REDUX
+Замечания: Проект был длительное время заморожен, сейчас в проекте  используются как классовые компоненты так и функциональные.      
+
+Структура проекта:
+    index.js - входная точка
+    app.js - роутер 
+    wizard/
+        wizard.js - пустая обертка - будет перенесена в WizardFrame
+        reducer.js - логика изменения состояний
+        actions.js - функции строители actions + middleware доступа к backend
+        action-types.js - типы события wizard
+        wizard-frame - контейнер набора этапов WIZARD и элементарные элементы (btn, step-header, input ) используемые контродами этапов   
+        wizard-tm -контрол ввода типа и значения товарного знака (1-й этап)
+    tools-hooks
+        use-request - реализация GET POST запросов к backend. Логика обработки статусов 200 500.   

@@ -30,7 +30,7 @@ namespace ItZnak.PatentsDtoLibrary.Services
             return _db.GetCollection<T>(coll.ToString());
         }
         public IMongoCollection<MktuClass> Mktu => GetCollections<MktuClass>(DB_COLLECTION_NAME.mktu);
-        public IMongoCollection<Member> Members => GetCollections<Member>(DB_COLLECTION_NAME.member);
+        public IMongoCollection<Member> Members => GetCollections<Member>(DB_COLLECTION_NAME.members);
         public IMongoCollection<TradeMark> Tm => GetCollections<TradeMark>(DB_COLLECTION_NAME.tm);
 
         public IMongoCollection<BsonDocument> GetCollection(string collectionName)

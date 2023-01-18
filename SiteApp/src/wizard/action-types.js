@@ -1,0 +1,9 @@
+export const MEMBERINIT = 'MEMBERINIT'
+export const NEXT = 'NEXT'
+export const PREV = 'PREV'
+export const SETACTIVESTAGE = 'SETACTIVESTAGE'
+export const ONCRITICALERROR = 'ONCRITICALERROR'
+export const ONBUSINESSERROR = 'ONBUSINESSERROR'
+export const SETVALUETM = 'SETVALUETM'
+export const CHECKVALUETM = 'CHECKVALUETM'
+

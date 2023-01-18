@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <title></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script>
+    </script>
+    <style>
+        .main-table{
+            background-color: #e7e7e7;
+            font-family: arial; 
+            
+            font-size: 16px;
+            padding-top:  20px;
+            width: 100%;
+        }
+        .contetnt-table{
+            margin:0 auto;
+            text-align:left;
+            width:800px;
+            border: 1px solid #bebebe;
+        }
+        .contetnt-table-caption-tr{
+            margin:0 auto;
+            height: 60px;
+        }
+
+        .contetnt-table-content-tr{
+            margin:0 auto;
+            background-color: whitesmoke;
+            height: 60px;
+        }
+
+        .contetnt-table-caption-td-name{
+            margin-left: 10px;
+            font-family: 'PT Sans Caption','Arial Black',sans-serif;
+            font-weight: 300;
+        }
+        .contetnt-table-caption-td-phone{
+            margin-left: 10px;
+            font-family: 'PT Sans Caption','Arial Black',sans-serif;
+            font-weight:bold;
+        }
+        .contetnt-table-caption-td-email{
+            margin-left: 10px;
+            font-weight:bold;
+            font-family: 'PT Sans Caption','Arial Black',sans-serif;
+            color: slategray;
+        }
+
+        .contenet-table-fnt{
+            font-family:"Times New Roman", Times, serif; font-size:12pt; ;
+        }
+        .contenet-table-td-prm{
+            vertical-align: top; font-weight: bold;font-size:12pt;
+        }
+
+        .contenet-table-td-val{
+            vertical-align: top;font-size:11pt; 
+        }
+        .contenet-table-td-centr{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #bebebe;
+        }
+        .contenet-table-td-centr-in{
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .contenet-table-td-trademark-word{
+           font-size: large;
+           font-weight: bolder;
+        }
+
+    </style>
+
+</head>
+<body>
+    <table class="contetnt-table">
+        <tr>
+            <td>
+                <img style="margin-left: 0px;" src="https://itznak.ru/app/partners/demo/mtemplates/mail-header.jpg"></img>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: white; border-top: 1px solid #bebebe; padding-left: 10px; padding-top: 10px; padding-right: 10px;">
+                <table class="contenet-table" style="width: 100%; ">
+                    <tr>
+                        <td style=" border-bottom: 1px dotted #bebebe; padding-bottom: 20px;" >
+                            _msg
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style=" border-bottom: 1px dotted #bebebe;">
+                            <table>
+                                <tr>
+                                    <td class="contenet-table-td-centr" >
+                                        <div class="contenet-table-td-centr-in contenet-table-td-trademark-word">
+                                            _imgWord       
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        <table>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">Заявка:</td>    
+                                                <td class="contenet-table-td-val">_number</td>    
+                                            </tr>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">Организация:</td>    
+                                                <td class="contenet-table-td-val">_organisation</td>    
+                                            </tr>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">Адрес:</td>    
+                                                <td class="contenet-table-td-val">_address</td>    
+                                            </tr>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">ОГРН:</td>    
+                                                <td class="contenet-table-td-val">_ogrn</td>    
+                                            </tr>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">ИНН:</td>    
+                                                <td class="contenet-table-td-val"> _inn</td>    
+                                            </tr>
+                                            <tr style="height: 30px;">
+                                                <td class="contenet-table-td-prm">МКТУ:</td>    
+                                                <td class="contenet-table-td-val" style="font-size: small;">_mktu</td>    
+                                            </tr>
+                                            
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                       
+                    </tr>
+                    <tr style="background-color: silver;">
+                        <td style=" border-bottom: 1px dotted #bebebe;">
+                            <table style="width: 100%; ">
+                                <tr style="height: 50px;">
+                                    <td style="width: 80%; ;"><p>Стоимость услуг по заявке №_number: </br>_serviceNameList   </p></td>
+                                    <td style="font-weight: bold ; color:blue; vertical-align: middle;">_serviceListAmount руб.</td>
+                                </tr>
+                                <tr style="font-size: smaller;">
+                                    <td colspan="2"> </td>
+                                </tr>
+                            </table>
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td style=" border-bottom: 1px dotted #bebebe;padding-bottom: 20px;">
+                            <br/>
+                            Вы можете изменить параметры завки в Вашем кабинете.
+                            <br/>
+                            <a href="_personalAccountEditRequestLink">войти в личный кабинет</a> 
+                        </td>     
+                    </tr>
+                </table>
+            </td>
+        <tr> 
+        <tr>
+            <td>
+                <!-- <img  src="https://www.tmservice.info/app/html-templates/logoright/mail-footer.jpg"></img> -->
+            </td>
+        </tr> 
+                            
+    </table>
+</html>
