@@ -36,7 +36,7 @@ namespace DbScanner.Actions
             TradeMark tm = (await _dbContext.Tm.FindAsync<TradeMark>(fltr))
                            .ToList()
                            .FirstOrDefault();
-            
+
             /* SET PHRASE AND VECTOR */
             _cache.SetString("tm_" + tm.DocId, tm.TMPhrase);
             if (tm.Vector != null)
