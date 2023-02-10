@@ -8,5 +8,6 @@ namespace ItZnak.Infrastruction.Services
         byte[] Get(string key);
         void SetString(string key, string v, DistributedCacheEntryOptions opt=null);
         void Set(string key, byte[] v, DistributedCacheEntryOptions opt=null);
+        void Remove(string key);
     }
 }

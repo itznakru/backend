@@ -449,6 +449,12 @@ $RECYCLE.BIN/
 *.sln.iml
 
 ##
+## Other GIT 
+##
+MatchEngineApi
+Model
+
+##
 ## Visual Studio Code
 ##
 .vscode/*

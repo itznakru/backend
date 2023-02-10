@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 namespace ItZnak.Infrastruction.Web.Controllers
 {
     public  abstract class WebApiControllerHandler<TIn,TOut>:IWebApiControllerHandler<TIn,TOut>{
+        protected   SemaphoreSlim _semaphoregate ;
         protected IMWebApiController _context;
-        protected WebApiControllerHandler(IMWebApiController context) => _context = context;
+        protected WebApiControllerHandler(IMWebApiController context)
+        {
+            _context = context;
+        }
         public virtual TOut Handle(TIn p)
         {
             throw new System.NotImplementedException();

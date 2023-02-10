@@ -1,14 +1,15 @@
 using Serilog;
+using Serilog.Sinks.File;
 /* реализация сервиса логирования сообщений на основе Serilog */
 namespace ItZnak.Infrastruction.Services{
  public class SerilogService : ILogService
     {
         readonly Serilog.ILogger _sl;
-        public SerilogService()
+        public SerilogService(string appLogFleName="app.log")
         {
              _sl =  new LoggerConfiguration()
-                    .WriteTo
-                    .Console()
+                    .WriteTo.Console()
+                    .WriteTo.File(appLogFleName)
                     .CreateLogger();
         }
 

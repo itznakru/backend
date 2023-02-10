@@ -20,25 +20,25 @@ namespace ItZnak.Infrastruction.Services
         private readonly DistributedCacheEntryOptions _cacheOptions;
         public RedisCache(IServiceCollection services, RedisCacheConfig cnfg)
         {
-            _configRedis=cnfg;    
+            _configRedis = cnfg;
             services.AddDistributedRedisCache(opt =>
             {
                 opt.Configuration = _configRedis.redisUrl;
                 opt.InstanceName = _configRedis.instanceName;
-              //  opt.ConfigurationOptions= new StackExchange.Redis.ConfigurationOptions(){SyncTimeout=15000};
+                //  opt.ConfigurationOptions= new StackExchange.Redis.ConfigurationOptions(){SyncTimeout=15000};
             });
             _cacheOptions = new DistributedCacheEntryOptions()
             {
                 AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(_configRedis.absoluteExpirationMin),
                 SlidingExpiration = TimeSpan.FromMinutes(_configRedis.slidingExpirationMin)
             };
-
-             IServiceProvider serviceProvider = services.BuildServiceProvider();
+            
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
             _cache = serviceProvider.GetRequiredService<IDistributedCache>();
         }
         public byte[] Get(string key)
         {
-            throw new NotImplementedException();
+            return _cache.Get(key);
         }
 
         public string GetString(string key)
@@ -46,14 +46,19 @@ namespace ItZnak.Infrastruction.Services
             return _cache.GetString(key);
         }
 
-        public void Set(string key, byte[] v, DistributedCacheEntryOptions opt=null)
+        public void Remove(string key)
         {
-            _cache.Set(key, v, opt??_cacheOptions);
+            _cache.Remove(key);
         }
 
-        public void SetString(string key, string v,DistributedCacheEntryOptions opt=null)
+        public void Set(string key, byte[] v, DistributedCacheEntryOptions opt = null)
         {
-            _cache.SetString(key, v, opt??_cacheOptions);
+            _cache.Set(key, v, opt ?? _cacheOptions);
+        }
+
+        public void SetString(string key, string v, DistributedCacheEntryOptions opt = null)
+        {
+            _cache.SetString(key, v, opt ?? _cacheOptions);
         }
     }
 }

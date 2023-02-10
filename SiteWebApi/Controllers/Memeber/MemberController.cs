@@ -23,7 +23,7 @@ namespace ItZnak.SiteWebApi.Controllers.Member
         /* вернуть натройки Wizard-a для участника системы заданного параметром memberKey */
         [HttpGet]
         [Route("getwizardsettings")]
-        public async Task<IActionResult> GetWizardSettingsAsync(string memberKey)
+        public async Task<IActionResult> GetWizardSettingsAsync( string memberKey)
         {
             var memberSettings=await new GetWizardSettingsHandler(this)
                                                 .HandleAsync(memberKey);
