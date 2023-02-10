@@ -5,5 +5,5 @@ namespace DbScanner.Process.Infrastruction
     VECTORDOWNLOAD - download vector to file
     BUILDVECTOR - build image vector
  */
-    public enum ACTIONTYPE { NONE, TRANSFER, PARSE,FILLREDIS, VECTORBUILD }
+    public enum ACTIONTYPE { NONE, TRANSFER, PARSE, FILLNODEBYTEMPLATES, VECTORBUILD }
 }

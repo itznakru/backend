@@ -8,18 +8,17 @@ using MongoDB.Driver;
 
 namespace DbScanner.Actions
 {
-    public class RedisAddVectorAndTextAction : IScanerAction
+    public class FillNodeBytemplatesAction : IScanerAction
     {
         private readonly IConfigService _cnf;
         private readonly ILogService _log;
-        private readonly IDistributeCache _cache;
+       
 
         readonly IMongoDbContextService _dbContext;
-        public RedisAddVectorAndTextAction(IConfigService cnf, ILogService log, IDistributeCache cache, IMongoDbContextService dbContext)
+        public FillNodeBytemplatesAction(IConfigService cnf, ILogService log,  IMongoDbContextService dbContext)
         {
             _log = log;
             _cnf = cnf;
-            _cache = cache;
             _dbContext = dbContext;
         }
 
@@ -36,11 +35,11 @@ namespace DbScanner.Actions
             TradeMark tm = (await _dbContext.Tm.FindAsync<TradeMark>(fltr))
                            .ToList()
                            .FirstOrDefault();
-
-            /* SET PHRASE AND VECTOR */
-            _cache.SetString("tm_" + tm.DocId, tm.TMPhrase);
-            if (tm.Vector != null)
-                _cache.Set("v_" + tm.DocId, tm.Vector);
+            Console.WriteLine(tm.DocId);
+            // /* SET PHRASE AND VECTOR */
+            // _cache.SetString("tm_" + tm.DocId, tm.TMPhrase);
+            // if (tm.Vector != null)
+            //     _cache.Set("v_" + tm.DocId, tm.Vector);
 
             SingletonProcessInfrastraction.Itstance.IncAndUpdateStateValue("ADD KEY");
         }
