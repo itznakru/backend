@@ -40,7 +40,7 @@ namespace DbScanner.Actions
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("http://localhost:8080/tm/core/addtemplate"),
+                RequestUri = new Uri("http://20.160.63.109:8888/tm/core/addtemplate"),
                 Content = new StringContent(
                     json,
                     System.Text.Encoding.UTF8,
