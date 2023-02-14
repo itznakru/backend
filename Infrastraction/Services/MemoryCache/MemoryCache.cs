@@ -51,7 +51,7 @@ namespace Infrastraction.Services.MemoryCache
 
         public IEnumerator<T> GetEnumerator()
         {
-            return _cache.Values.GetEnumerator() as IEnumerator<T>;
+            return _cache.Keys.GetEnumerator() as IEnumerator<T>;
         }
 
         public T Get(string key)
@@ -77,7 +77,7 @@ namespace Infrastraction.Services.MemoryCache
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _cache.Values.GetEnumerator();
+            return _cache.Keys.GetEnumerator();
         }
 
         public bool IsExists(string key)

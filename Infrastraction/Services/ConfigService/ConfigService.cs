@@ -19,6 +19,10 @@ namespace ItZnak.Infrastruction.Services
             return int.Parse(_root[field]??"0");
         }
 
+         public bool GetBool (string field){
+              return bool.Parse(_root[field]);
+         }
+
         public T GetObject<T>(string filed)
         {
             T dto= Activator.CreateInstance<T>();
